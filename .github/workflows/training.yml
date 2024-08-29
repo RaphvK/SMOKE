@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   train:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: raffivk/dataset-server:latest  # TODO: Move to TC space
     
