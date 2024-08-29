@@ -3,13 +3,10 @@ run-name: ${{ github.actor }} is training a new model 🚀
 on: [push]
 
 jobs:
-  build-and-test:
+  train:
     runs-on: ubuntu-latest
     container:
-      image: gitlab.ika.rwth-aachen.de:5050/tc/dataset-server
-      credentials:
-        username: ${{ secrets.GITLAB_USERNAME }}
-        password: ${{ secrets.GITLAB_PASSWORD }}
+      image: raffivk/dataset-server:latest  # TODO: Move to TC space
     
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -19,19 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
-      
-      - name: Install dependencies
+      - name: List files in the repository
         run: |
-          python -m pip install --upgrade pip
-          pip install tensorflow tensorflow-datasets
-      
-          - name: List files in the repository
-          run: |
-            ls ${{ github.workspace }}
+          ls ${{ github.workspace }}
 
     #   - name: Run training script
     #     run: python evaluate.py
